@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheTableBackend", "TheTableBackend\TheTableBackend.csproj", "{68BD11C4-8028-4EF7-BE4F-962F1E069515}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheTableBackend.Test", "TheTableBackend.Test\TheTableBackend.Test.csproj", "{1E93A920-9E9E-4C0E-9D5D-B7AA2E7D4EDC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{68BD11C4-8028-4EF7-BE4F-962F1E069515}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68BD11C4-8028-4EF7-BE4F-962F1E069515}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68BD11C4-8028-4EF7-BE4F-962F1E069515}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E93A920-9E9E-4C0E-9D5D-B7AA2E7D4EDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E93A920-9E9E-4C0E-9D5D-B7AA2E7D4EDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E93A920-9E9E-4C0E-9D5D-B7AA2E7D4EDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E93A920-9E9E-4C0E-9D5D-B7AA2E7D4EDC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
