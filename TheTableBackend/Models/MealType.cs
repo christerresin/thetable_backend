@@ -1,5 +1,8 @@
-﻿namespace TheTableBackend.Models
+﻿using System.Text.Json.Serialization;
+
+namespace TheTableBackend.Models
 {
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum MealType
     {
         Appetizer = 1,
