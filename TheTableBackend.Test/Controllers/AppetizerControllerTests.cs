@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using TheTableBackend.Controllers;
 using TheTableBackend.Dtos.Meal;
 using TheTableBackend.Interfaces;
@@ -22,6 +23,7 @@ namespace TheTableBackend.Test.Controllers
         {
             _appetizerService = A.Fake<IAppetizerService>();
         }
+
         [Fact]
         public void AppetizerController_GetAllAppetizers_ReturnOk()
         {
@@ -37,30 +39,21 @@ namespace TheTableBackend.Test.Controllers
             result.Should().NotBeNull();
             result.Should().BeOfType<Task<ActionResult<ServiceResponse<List<GetMealDto>>>>>();
         }
-        //[Theory]
-        //[InlineData(1, "Pikachu!")]
-        //public void AppetizerController_pikaPika_ReturnString(int number, string expected)
-        //{
-        //    // Arrange
-        //    var appetizerController = new AppetizerController();
 
-        //    // Act
-        //    var result = appetizerController.pikaPika(number);
+        [Fact]
+        public void AppetizerController_GetAppetizerById_ReturnOk()
+        {
+            // Arrange
+            var appetizer = A.Fake<ServiceResponse<GetMealDto>>();
+            A.CallTo(() => _appetizerService.GetAppetizerById(1)).Returns(appetizer);
+            var controller = new AppetizerController(_appetizerService);
 
-        //    // Assert
-        //    result.Should().Be(expected);
-        //}
-        //[Fact]
-        //public void AppetizerController_Get_ReturnMeal()
-        //{
-        //    // Arrange
-        //    var appetizerController = new AppetizerController();
+            // Act
+            var result = controller.GetAppetizerById(1);
 
-        //    // Act
-        //    var result = appetizerController.Get();
-
-        //    // Assert
-        //    result.Should().BeOfType<ActionResult<Meal>>();
-        //}
+            // Assert
+            result.Should().NotBeNull();
+        }
+        
     }
 }
