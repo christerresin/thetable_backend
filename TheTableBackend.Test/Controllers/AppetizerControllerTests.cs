@@ -99,5 +99,21 @@ namespace TheTableBackend.Test.Controllers
             result.Should().BeOfType<ServiceResponse<GetMealDto>>();
         }
 
+        [Fact]
+        public virtual async void AppetizerController_DeleteAppetizer_ReturnOk()
+        {
+            // Arrange
+            GetMealDto deletedAppetizer = new GetMealDto { Id = 1, Title = "Stub Appetizer" };
+            ServiceResponse<GetMealDto> response = new ServiceResponse<GetMealDto> { Data = deletedAppetizer };
+            A.CallTo(() => _appetizerService.DeleteAppetizer(1)).Returns(response);
+
+            // Act
+            var result = await _appetizerService.DeleteAppetizer(1);
+
+            // Assert
+            result.Should().NotBeNull();
+            result.Should().BeOfType<ServiceResponse<GetMealDto>>();
+        }
+
     }
 }
