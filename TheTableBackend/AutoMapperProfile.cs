@@ -6,6 +6,8 @@ namespace TheTableBackend
     {
         public AutoMapperProfile() {
             CreateMap<Meal, GetMealDto>();
+            CreateMap<AddMealDto, Meal>();
+            CreateMap<UpdateMealDto, Meal>();
         }
     }
 }

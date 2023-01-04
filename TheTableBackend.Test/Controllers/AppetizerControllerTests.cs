@@ -18,10 +18,16 @@ namespace TheTableBackend.Test.Controllers
  
     public class AppetizerControllerTests
     {
+
         private readonly IAppetizerService _appetizerService;
+        private readonly AppetizerController _appetizerController;
+
         public AppetizerControllerTests()
         {
             _appetizerService = A.Fake<IAppetizerService>();
+
+            // SUT
+            _appetizerController = new AppetizerController(_appetizerService);
         }
 
         [Fact]
@@ -48,15 +54,50 @@ namespace TheTableBackend.Test.Controllers
             // Arrange
             var appetizer = A.Fake<ServiceResponse<GetMealDto>>();
             A.CallTo(() => _appetizerService.GetAppetizerById(1)).Returns(appetizer);
-            var controller = new AppetizerController(_appetizerService);
 
             // Act
-            var result = await controller.GetAppetizerById(1);
+            var result = await _appetizerController.GetAppetizerById(1);
 
             // Assert
             result.Should().NotBeNull();
             result.Should().BeOfType<ActionResult<ServiceResponse<GetMealDto>>>();
         }
-        
+
+        [Fact]
+        public virtual async void AppetizerController_AddNewAppetizer_ReturnOk()
+        {
+            // Arrange
+            AddMealDto newAppetizerDto = A.Fake<AddMealDto>();
+            var returnedAppetizer = A.Fake<ServiceResponse<GetMealDto>>();
+            A.CallTo(() => _appetizerService.AddNewAppetizer(newAppetizerDto)).Returns(returnedAppetizer);
+
+            // Act
+            var result = await _appetizerController.AddNewAppetizer(newAppetizerDto);
+
+            // Assert
+            result.Should().NotBeNull();
+            result.Should().BeOfType<ActionResult<ServiceResponse<GetMealDto>>>();
+        }
+
+        [Fact]
+        public virtual async void AppetizerController_UpdateAppetizer_ReturnOk()
+        {
+            // Arrange
+            var updatedAppetizerDto = A.Fake<UpdateMealDto>();
+            GetMealDto appetizer = new GetMealDto { Id = 1, Title = "Appetizer" };
+            ServiceResponse<GetMealDto> response = new ServiceResponse<GetMealDto> { Data = appetizer };
+            A.CallTo(() => _appetizerService.UpdateAppetizer(updatedAppetizerDto)).Returns(response);
+
+            // Act
+            var result = await _appetizerService.UpdateAppetizer(updatedAppetizerDto);
+
+            // Assert
+            result.Should().NotBeNull();
+            result.Success.Should().BeTrue();
+            result.Data.Should().NotBeNull();
+            result.Data.Title.Should().Be("Appetizer");
+            result.Should().BeOfType<ServiceResponse<GetMealDto>>();
+        }
+
     }
 }
