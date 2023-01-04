@@ -25,7 +25,8 @@ namespace TheTableBackend.Test.Controllers
         }
 
         [Fact]
-        public void AppetizerController_GetAllAppetizers_ReturnOk()
+        // add "virtual async" from FakeItEasy to test async methods that otherwise returns a <Task>
+        public virtual async void AppetizerController_GetAllAppetizers_ReturnOk()
         {
             // Arrange
             var appetizers = A.Fake<ServiceResponse<List<GetMealDto>>>();
@@ -33,15 +34,16 @@ namespace TheTableBackend.Test.Controllers
             var controller = new AppetizerController(_appetizerService);
 
             // Act
-            var result = controller.GetAllAppetizers();
+            var result = await controller.GetAllAppetizers();
 
             //Assert
             result.Should().NotBeNull();
-            result.Should().BeOfType<Task<ActionResult<ServiceResponse<List<GetMealDto>>>>>();
+            result.Should().BeOfType<ActionResult<ServiceResponse<List<GetMealDto>>>>();
         }
 
         [Fact]
-        public void AppetizerController_GetAppetizerById_ReturnOk()
+        // add "virtual async" from FakeItEasy to test async methods that otherwise returns a <Task>
+        public virtual async void AppetizerController_GetAppetizerById_ReturnOk()
         {
             // Arrange
             var appetizer = A.Fake<ServiceResponse<GetMealDto>>();
@@ -49,10 +51,11 @@ namespace TheTableBackend.Test.Controllers
             var controller = new AppetizerController(_appetizerService);
 
             // Act
-            var result = controller.GetAppetizerById(1);
+            var result = await controller.GetAppetizerById(1);
 
             // Assert
             result.Should().NotBeNull();
+            result.Should().BeOfType<ActionResult<ServiceResponse<GetMealDto>>>();
         }
         
     }
