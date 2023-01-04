@@ -5,38 +5,38 @@ namespace TheTableBackend.Services.AppetizerService
 {
     public class AppetizerService : IAppetizerService
     {
-        private readonly IMapper mapper;
-        private readonly IMealRepository mealRepository;
+        private readonly IMapper _mapper;
+        private readonly IMealRepository _mealRepository;
         private MealType mealType = MealType.Appetizer;
 
         public AppetizerService(IMapper mapper, IMealRepository mealRepository)
         {
-            this.mapper = mapper;
-            this.mealRepository = mealRepository;
+            _mapper = mapper;
+            _mealRepository = mealRepository;
         }
         public async Task<ServiceResponse<GetMealDto>> AddNewAppetizer(AddMealDto newAppetizer)
         {
             var serviceResponse = new ServiceResponse<GetMealDto>();
-            Meal appetizer = mapper.Map<Meal>(newAppetizer);
-            await mealRepository.AddNewMeal(appetizer);
+            Meal appetizer = _mapper.Map<Meal>(newAppetizer);
+            await _mealRepository.AddNewMeal(appetizer);
 
-            serviceResponse.Data = mapper.Map<GetMealDto>(appetizer);
+            serviceResponse.Data = _mapper.Map<GetMealDto>(appetizer);
             return serviceResponse;
         }
 
         public async Task<ServiceResponse<List<GetMealDto>>> GetAllAppetizers()
         {
             var serviceResponse = new ServiceResponse<List<GetMealDto>>();
-            var dbAppetizers = await mealRepository.GetAllMeals(mealType);
-            serviceResponse.Data = dbAppetizers.Select(a => mapper.Map<GetMealDto>(a)).ToList();
+            var dbAppetizers = await _mealRepository.GetAllMeals(mealType);
+            serviceResponse.Data = dbAppetizers.Select(a => _mapper.Map<GetMealDto>(a)).ToList();
             return serviceResponse;
         }
 
         public async Task<ServiceResponse<GetMealDto>> GetAppetizerById(int id)
         {
             var serviceResponse = new ServiceResponse<GetMealDto>();
-            Meal appetizer = await mealRepository.GetMealById(id);
-            serviceResponse.Data = mapper.Map<GetMealDto>(appetizer);
+            Meal appetizer = await _mealRepository.GetMealById(id);
+            serviceResponse.Data = _mapper.Map<GetMealDto>(appetizer);
             return serviceResponse;
         }
 
@@ -47,7 +47,7 @@ namespace TheTableBackend.Services.AppetizerService
             try
             {
                 // REFACTOR THIS LOGIC
-                Meal appetizer = await mealRepository.UpdateMeal(mapper.Map<Meal>(updatedAppetizer));
+                Meal appetizer = await _mealRepository.UpdateMeal(_mapper.Map<Meal>(updatedAppetizer));
 
                 appetizer.Title = updatedAppetizer.Title;
                 appetizer.Description = updatedAppetizer.Description;
@@ -57,7 +57,7 @@ namespace TheTableBackend.Services.AppetizerService
                 appetizer.LastEdited = DateTime.Now;
 
 
-                serviceResponse.Data = mapper.Map<GetMealDto>(appetizer);
+                serviceResponse.Data = _mapper.Map<GetMealDto>(appetizer);
 
             }
             catch (Exception ex)
@@ -76,9 +76,9 @@ namespace TheTableBackend.Services.AppetizerService
             try
             {
                 Meal appetizerToDelete = new Meal() { Id = id };
-                await mealRepository.DeleteMeal(appetizerToDelete);
+                await _mealRepository.DeleteMeal(appetizerToDelete);
 
-                serviceResponse.Data = mapper.Map<GetMealDto>(appetizerToDelete);
+                serviceResponse.Data = _mapper.Map<GetMealDto>(appetizerToDelete);
 
             }
             catch (Exception ex)

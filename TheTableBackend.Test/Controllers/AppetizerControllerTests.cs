@@ -37,10 +37,9 @@ namespace TheTableBackend.Test.Controllers
             // Arrange
             var appetizers = A.Fake<ServiceResponse<List<GetMealDto>>>();
             A.CallTo(() => _appetizerService.GetAllAppetizers()).Returns(appetizers);
-            var controller = new AppetizerController(_appetizerService);
 
             // Act
-            var result = await controller.GetAllAppetizers();
+            var result = await _appetizerController.GetAllAppetizers();
 
             //Assert
             result.Should().NotBeNull();
