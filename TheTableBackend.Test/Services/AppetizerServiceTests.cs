@@ -90,5 +90,26 @@ namespace TheTableBackend.Test.Services
             result.Should().NotBeNull();
             result.Should().BeOfType<ServiceResponse<GetMealDto>>();
         }
+
+        [Fact]
+        public virtual async void AppetizerService_UpdateAppetizer_ReturnOk()
+        {
+            // Arrange
+            var response = A.Fake<ServiceResponse<GetMealDto>>();
+            var updatedMeal = A.Fake<UpdateMealDto>();
+            var appetizer = A.Fake<Meal>();
+            var dbAppetizer = A.Fake<Meal>();
+            var appetizerDto = A.Fake<GetMealDto>();
+            A.CallTo(() => _mapper.Map<Meal>(updatedMeal)).Returns(appetizer);
+            A.CallTo(() => _mapper.Map<GetMealDto>(appetizer)).Returns(appetizerDto);
+            A.CallTo(() => _mealRepository.UpdateMeal(appetizer)).Returns(dbAppetizer);
+
+            // Act
+            var result = await _appetizerService.UpdateAppetizer(updatedMeal);
+
+            // Assert
+            result.Should().NotBeNull();
+            result.Should().BeOfType<ServiceResponse<GetMealDto>>();
+        }
     }
 }
