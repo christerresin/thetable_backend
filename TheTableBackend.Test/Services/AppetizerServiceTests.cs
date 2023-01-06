@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FakeItEasy;
 using FluentAssertions;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,6 +49,25 @@ namespace TheTableBackend.Test.Services
             // Assert
             result.Should().NotBeNull();
             result.Should().BeOfType<ServiceResponse<List<GetMealDto>>>();
+        }
+
+        [Fact]
+        public virtual async void AppetizerService_GetAppetizerById_ReturnOk()
+        {
+            // Arrange
+            var response = A.Fake<ServiceResponse<GetMealDto>>();
+            var appetizerDto = A.Fake<GetMealDto>();
+            var appetizer = A.Fake<Meal>();
+            A.CallTo(() => _mapper.Map<GetMealDto>(appetizer)).Returns(appetizerDto);
+            A.CallTo(() => _mealRepository.GetMealById(1)).Returns(appetizer);
+
+            // Act
+            var result = await _appetizerService.GetAppetizerById(1);
+
+            // Assert
+            result.Should().NotBeNull();
+            result.Should().BeOfType<ServiceResponse<GetMealDto>>();
+
         }
     }
 }
