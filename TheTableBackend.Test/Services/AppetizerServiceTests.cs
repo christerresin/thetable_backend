@@ -48,6 +48,8 @@ namespace TheTableBackend.Test.Services
 
             // Assert
             result.Should().NotBeNull();
+            result.Data.Should().NotBeNull();
+            result.Success.Should().BeTrue();
             result.Should().BeOfType<ServiceResponse<List<GetMealDto>>>();
         }
 
@@ -66,6 +68,8 @@ namespace TheTableBackend.Test.Services
 
             // Assert
             result.Should().NotBeNull();
+            result.Data.Should().NotBeNull();
+            result.Success.Should().BeTrue();
             result.Should().BeOfType<ServiceResponse<GetMealDto>>();
 
         }
@@ -88,6 +92,8 @@ namespace TheTableBackend.Test.Services
 
             // Assert
             result.Should().NotBeNull();
+            result.Data.Should().NotBeNull();
+            result.Success.Should().BeTrue();
             result.Should().BeOfType<ServiceResponse<GetMealDto>>();
         }
 
@@ -109,6 +115,8 @@ namespace TheTableBackend.Test.Services
 
             // Assert
             result.Should().NotBeNull();
+            result.Data.Should().NotBeNull();
+            result.Success.Should().BeTrue();
             result.Should().BeOfType<ServiceResponse<GetMealDto>>();
         }
 
@@ -128,6 +136,7 @@ namespace TheTableBackend.Test.Services
 
             // Assert
             result.Should().NotBeNull();
+            result.Data.Should().NotBeNull();
             result.Success.Should().BeTrue();
             result.Should().BeOfType<ServiceResponse<GetMealDto>>();
         }
